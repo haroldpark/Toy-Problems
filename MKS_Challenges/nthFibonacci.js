@@ -1,56 +1,27 @@
-// Power Set
-// Return an array that contains the power set of a given string. The power set is a set of all the possible subsets, including the empty set.
+// nthFibonacci
+// Suppose a newly-born pair of iguanas, one male, one female, are put in a large aquarium.
 //
-// Make sure your code does the following:
+// Iguanas are able to mate at the age of one month so that at the end of its second month a female can produce another pair of iguanas.
 //
-// All characters in a subset should be sorted alphabetically, and the array of subsets should be sorted alphabetically.
-// Sets of the same characters are considered duplicates regardless of order and count only once, e.g. ‘ab’ and ‘ba’ are the same.
-// Duplicate characters in strings should be ignored; for example, ‘obama’ should be evaluated as if it only contained one ‘a’. See the result below.
+// Suppose that our iguanas never die and that the female always produces one new pair (one male, one female) every month from the second month on.
+//
+// How many pairs of iguanas will there be after n months?
+//
+// For example, the iguana pair size for months zero through five are:
+//
+// 0 1 1 2 3 5
+// If n were 4, your function should return 3; for 5, it should return 5.]
 
-function powerSet (string) {
-  // Write your code here, and
-  // return your final answer.
+nthFibonacci = function(n) {
+  var temp = 0;
+  var num1 = 0;
+  var num2 = 1;
 
-  var results = [''];
-
-  var string_chars = string.split('');
-  var new_string = [];
-
-  //get rid of repeating characters in string
-  for(var i=0; i<string_chars.length; i++){
-    if(new_string.indexOf(string_chars[i]) === -1){
-      new_string.push(string_chars[i]);
-    }
+  for(var i =0; i<n; i++){
+    temp = num1 + num2;
+    num1 = num2;
+    num2 = temp;
   }
 
-  new_string = new_string.join('');
-
-
-  var recurse = function(start, substring_length, prefix){
-    for(var i=start; i<new_string.length; i++){
-
-      var new_prefix = prefix + new_string[i];
-      if(substring_length>0){
-        recurse(i+1, substring_length-1, new_prefix);
-      }
-      if(substring_length === 0){
-        results.push(new_prefix);
-      }
-    }
-  }
-
-  //make every combination, without repeats
-  for(var i=0; i<new_string.length; i++){
-    recurse(0, i, '');
-  }
-
-  //sort each substring
-  for(var i=0; i<results.length; i++){
-    var substring_chars = results[i].split('');
-    substring_chars.sort();
-    results[i] = substring_chars.join('');
-  }
-
-  return results.sort();
-
-}
+  return num1;
+};
